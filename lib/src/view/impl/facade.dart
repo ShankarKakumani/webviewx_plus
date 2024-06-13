@@ -97,13 +97,9 @@ class WebViewX extends StatelessWidget implements view_interface.WebViewX {
   @override
   final MobileSpecificParams mobileSpecificParams;
 
-  @override
-  final String? iFrameId;
-
   /// Constructor
   const WebViewX({
     Key? key,
-    this.iFrameId,
     this.initialContent = 'about:blank',
     this.initialSourceType = SourceType.url,
     this.userAgent,

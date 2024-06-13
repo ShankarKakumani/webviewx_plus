@@ -5,6 +5,9 @@ import 'package:webviewx_plus/src/utils/webview_content_model.dart';
 
 /// Interface for controller
 abstract class WebViewXController<T> {
+
+
+  String? get iFrameId;
   /// Cross-platform webview connector
   ///
   /// At runtime, this will be WebViewController, JsObject or other concrete
@@ -27,6 +30,7 @@ abstract class WebViewXController<T> {
   /// [SourceType] is [SourceType.urlBypass], which means it should
   /// use the bypass to fetch the web page content.
   bool get isCurrentContentURLBypass;
+
 
   /// Set webview content to the specified `content`.
   /// Example: https://flutter.dev/

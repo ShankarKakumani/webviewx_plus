@@ -17,12 +17,15 @@ class WebViewContent {
   /// POST request body, on WEB only
   final Object? webPostRequestBody;
 
+  final String? iFrameId;
+
   /// Constructor
   const WebViewContent({
     required this.source,
     required this.sourceType,
     this.headers,
     this.webPostRequestBody,
+    this.iFrameId
   });
 
   WebViewContent copyWith({
@@ -30,12 +33,14 @@ class WebViewContent {
     SourceType? sourceType,
     Map<String, String>? headers,
     Object? webPostRequestBody,
+    String? iFrameId,
   }) =>
       WebViewContent(
         source: source ?? this.source,
         sourceType: sourceType ?? this.sourceType,
         headers: headers ?? this.headers,
         webPostRequestBody: webPostRequestBody ?? this.webPostRequestBody,
+        iFrameId: iFrameId?? this.iFrameId,
       );
 
   @override

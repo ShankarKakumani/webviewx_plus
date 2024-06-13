@@ -86,7 +86,10 @@ class _WebViewXPageState extends State<WebViewXPage> {
       initialSourceType: SourceType.html,
       height: screenSize.height / 2,
       width: min(screenSize.width * 0.8, 1024),
-      onWebViewCreated: (controller) => webviewController = controller,
+      onWebViewCreated: (controller) {
+        webviewController = controller;
+        debugPrint('iFrameId : ${controller.iFrameId}');
+      },
       onPageStarted: (src) =>
           debugPrint('A new page has started loading: $src\n'),
       onPageFinished: (src) =>

@@ -277,4 +277,8 @@ class WebViewXController extends ChangeNotifier
     _ignoreAllGesturesNotifier.dispose();
     super.dispose();
   }
+
+
+  @override
+  String? get iFrameId => value.iFrameId;
 }

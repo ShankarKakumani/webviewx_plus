@@ -31,11 +31,13 @@ class WebViewXController extends ChangeNotifier
     required String initialContent,
     required SourceType initialSourceType,
     required bool ignoreAllGestures,
+    required String iFrameId
   })  : _ignoreAllGesturesNotifier = ValueNotifier(ignoreAllGestures),
         _history = HistoryStack<WebViewContent>(
           initialEntry: WebViewContent(
             source: initialContent,
             sourceType: initialSourceType,
+            iFrameId: iFrameId,
           ),
         );
 
@@ -278,4 +280,8 @@ class WebViewXController extends ChangeNotifier
     _ignoreAllGesturesNotifier.dispose();
     super.dispose();
   }
+
+  @override
+  String? get iFrameId => value.iFrameId;
+
 }

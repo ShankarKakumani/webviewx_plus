@@ -110,13 +110,9 @@ class WebViewX extends StatefulWidget implements view_interface.WebViewX {
   @override
   final MobileSpecificParams mobileSpecificParams;
 
-  @override
-  final String? iFrameId;
-
   /// Constructor
   const WebViewX({
     Key? key,
-    this.iFrameId,
     this.initialContent = 'about:blank',
     this.initialSourceType = SourceType.url,
     this.userAgent,
@@ -188,6 +184,7 @@ class _WebViewXState extends State<WebViewX> {
       initialContent: widget.initialContent,
       initialSourceType: widget.initialSourceType,
       ignoreAllGestures: _ignoreAllGestures,
+      iFrameId: 'id_$iframeViewType',
     )
       ..addListener(_handleChange)
       ..addIgnoreGesturesListener(_handleIgnoreGesturesChange);
@@ -335,7 +332,7 @@ class _WebViewXState extends State<WebViewX> {
 
   // This creates a unique String to be used as the view type of the HtmlElementView
   String _createViewType() {
-    return widget.iFrameId ?? HtmlUtils.buildIframeViewType();
+    return HtmlUtils.buildIframeViewType();
   }
 
   html.IFrameElement _createIFrame() {

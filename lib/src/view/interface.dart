@@ -77,10 +77,8 @@ abstract class WebViewX {
   /// if all features become cross platform.
   final MobileSpecificParams mobileSpecificParams;
 
-  final String? iFrameId;
   // /// Constructor
   const WebViewX({
-    this.iFrameId,
     this.initialContent = 'about:blank',
     this.initialSourceType = SourceType.url,
     this.userAgent,
