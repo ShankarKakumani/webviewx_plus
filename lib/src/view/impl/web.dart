@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
+
 // ignore: avoid_web_libraries_in_flutter
 import 'dart:html' as html;
+
 // ignore: avoid_web_libraries_in_flutter
 import 'dart:js' as js;
 
@@ -45,8 +47,7 @@ class WebViewX extends StatefulWidget implements view_interface.WebViewX {
   /// Callback which returns a reference to the [WebViewXController]
   /// being created.
   @override
-  final Function(ctrl_interface.WebViewXController controller)?
-      onWebViewCreated;
+  final Function(ctrl_interface.WebViewXController controller)? onWebViewCreated;
 
   /// A set of [EmbeddedJsContent].
   ///
@@ -109,9 +110,13 @@ class WebViewX extends StatefulWidget implements view_interface.WebViewX {
   @override
   final MobileSpecificParams mobileSpecificParams;
 
+  @override
+  final String? iFrameId;
+
   /// Constructor
   const WebViewX({
     Key? key,
+    this.iFrameId,
     this.initialContent = 'about:blank',
     this.initialSourceType = SourceType.url,
     this.userAgent,
@@ -122,8 +127,7 @@ class WebViewX extends StatefulWidget implements view_interface.WebViewX {
     this.dartCallBacks = const {},
     this.ignoreAllGestures = false,
     this.javascriptMode = JavascriptMode.unrestricted,
-    this.initialMediaPlaybackPolicy =
-        AutoMediaPlaybackPolicy.requireUserActionForAllMediaTypes,
+    this.initialMediaPlaybackPolicy = AutoMediaPlaybackPolicy.requireUserActionForAllMediaTypes,
     this.onPageStarted,
     this.onPageFinished,
     this.navigationDelegate,
@@ -160,8 +164,7 @@ class _WebViewXState extends State<WebViewX> {
 
     if (widget.initialSourceType == SourceType.html ||
         widget.initialSourceType == SourceType.urlBypass ||
-        (widget.initialSourceType == SourceType.url &&
-            widget.initialContent == 'about:blank')) {
+        (widget.initialSourceType == SourceType.url && widget.initialContent == 'about:blank')) {
       _connectJsToFlutter(then: _callOnWebViewCreatedCallback);
     } else {
       _callOnWebViewCreatedCallback();
@@ -177,8 +180,7 @@ class _WebViewXState extends State<WebViewX> {
   }
 
   void _registerView(String viewType) {
-    ui.platformViewRegistry
-        .registerViewFactory(viewType, (int viewId) => iframe);
+    ui.platformViewRegistry.registerViewFactory(viewType, (int viewId) => iframe);
   }
 
   WebViewXController _createWebViewXController() {
@@ -333,7 +335,7 @@ class _WebViewXState extends State<WebViewX> {
 
   // This creates a unique String to be used as the view type of the HtmlElementView
   String _createViewType() {
-    return HtmlUtils.buildIframeViewType();
+    return widget.iFrameId ?? HtmlUtils.buildIframeViewType();
   }
 
   html.IFrameElement _createIFrame() {
@@ -357,8 +359,7 @@ class _WebViewXState extends State<WebViewX> {
 
     final allow = widget.webSpecificParams.additionalAllowOptions;
 
-    if (widget.initialMediaPlaybackPolicy ==
-        AutoMediaPlaybackPolicy.alwaysAllow) {
+    if (widget.initialMediaPlaybackPolicy == AutoMediaPlaybackPolicy.alwaysAllow) {
       allow.add('autoplay');
     }
 
@@ -460,8 +461,7 @@ class _WebViewXState extends State<WebViewX> {
     final href = dartObj['href'] as String;
     _debugLog(dartObj.toString());
 
-    if (!await _checkNavigationAllowed(
-        href, webViewXController.value.sourceType)) {
+    if (!await _checkNavigationAllowed(href, webViewXController.value.sourceType)) {
       _debugLog('Navigation not allowed for source:\n$href\n');
       return;
     }
