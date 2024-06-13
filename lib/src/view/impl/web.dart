@@ -157,7 +157,7 @@ class _WebViewXState extends State<WebViewX> {
     _ignoreAllGestures = widget.ignoreAllGestures;
 
     iframeViewType = _createViewType();
-    widget.onIframeIdChanged?.call(iframeViewType);
+    widget.onIframeIdChanged?.call('id_$iframeViewType');
     iframe = _createIFrame();
     _registerView(iframeViewType);
 
@@ -440,7 +440,7 @@ class _WebViewXState extends State<WebViewX> {
         }
 
         iframeViewType = _createViewType();
-        widget.onIframeIdChanged?.call(iframeViewType);
+        widget.onIframeIdChanged?.call('id_$iframeViewType');
         iframe = _createIFrame();
         _registerView(iframeViewType);
 
