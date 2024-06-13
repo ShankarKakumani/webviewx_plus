@@ -110,6 +110,9 @@ class WebViewX extends StatefulWidget implements view_interface.WebViewX {
   @override
   final MobileSpecificParams mobileSpecificParams;
 
+  @override
+  final ValueChanged<String>? onIframeIdChanged;
+
   /// Constructor
   const WebViewX({
     Key? key,
@@ -130,6 +133,7 @@ class WebViewX extends StatefulWidget implements view_interface.WebViewX {
     this.onWebResourceError,
     this.webSpecificParams = const WebSpecificParams(),
     this.mobileSpecificParams = const MobileSpecificParams(),
+    this.onIframeIdChanged,
   }) : super(key: key);
 
   @override
@@ -153,6 +157,7 @@ class _WebViewXState extends State<WebViewX> {
     _ignoreAllGestures = widget.ignoreAllGestures;
 
     iframeViewType = _createViewType();
+    widget.onIframeIdChanged?.call(iframeViewType);
     iframe = _createIFrame();
     _registerView(iframeViewType);
 
@@ -435,6 +440,7 @@ class _WebViewXState extends State<WebViewX> {
         }
 
         iframeViewType = _createViewType();
+        widget.onIframeIdChanged?.call(iframeViewType);
         iframe = _createIFrame();
         _registerView(iframeViewType);
 

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:webviewx_plus/src/utils/utils.dart';
 import 'package:webviewx_plus/src/controller/interface.dart';
 
@@ -77,6 +78,8 @@ abstract class WebViewX {
   /// if all features become cross platform.
   final MobileSpecificParams mobileSpecificParams;
 
+  final ValueChanged<String>? onIframeIdChanged;
+
   // /// Constructor
   const WebViewX({
     this.initialContent = 'about:blank',
@@ -97,5 +100,6 @@ abstract class WebViewX {
     this.onWebResourceError,
     this.webSpecificParams = const WebSpecificParams(),
     this.mobileSpecificParams = const MobileSpecificParams(),
+    this.onIframeIdChanged
   });
 }
